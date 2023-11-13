@@ -256,14 +256,46 @@ resource "ovirt_vm" "foo" {
 	cluster_id  = "%s"
 	template_id = "%s"
 	name        = "test"
-	initialization_hostname = "vm-test-1"
-	initialization_custom_script = "echo hello"
+        initialization {
+	    custom_script = "echo hello"
+	    hostname = "vm-test-1"
+            nic_configuration {
+                name = "nic_configuration_name"
+                ip {
+                    address="1.1.1.1"
+                    gateway="1.1.1.1"
+                    netmask="1.1.1.1"
+                    version="v4"
+                }
+                ipv6 {
+                    address="2001:0db8:85a3:0000:0000:8a2e:0370:7334"
+                    gateway="1.1.1.1"
+                    netmask="1.1.1.1"
+                    version="v6"
+                }
+            }
+            active_directory_ou = "active_directory_ou"
+            authorized_ssh_keys = "authorized_ssh_keys"
+            dns_search = "dns_search"
+            dns_servers = "dns_servers"
+            domain = "domain"
+            input_locale = "input_locale"
+            org_name = "org_name"
+            regenerate_ids = true
+            regenerate_ssh_keys = false
+            root_password = "root_password"
+            system_locale = "system_locale"
+            timezone = "timezone"
+            ui_language = "ui_language"
+            user_locale = "user_locale"
+            user_name = "user_name"
+            windows_license_key = "windows_license_key"
+        }
 }
 `,
 		clusterID,
 		templateID,
 	)
-
 	resource.UnitTest(
 		t, resource.TestCase{
 			ProviderFactories: p.getProviderFactories(),
@@ -273,13 +305,154 @@ resource "ovirt_vm" "foo" {
 					Check: resource.ComposeTestCheckFunc(
 						resource.TestMatchResourceAttr(
 							"ovirt_vm.foo",
-							"initialization_hostname",
-							regexp.MustCompile("^vm-test-1$"),
+							"initialization.0.custom_script",
+							regexp.MustCompile("^echo hello$"),
 						),
 						resource.TestMatchResourceAttr(
 							"ovirt_vm.foo",
-							"initialization_custom_script",
-							regexp.MustCompile("^echo hello$"),
+							"initialization.0.hostname",
+							regexp.MustCompile("vm-test-1"),
+						),
+						resource.TestMatchResourceAttr(
+							"ovirt_vm.foo",
+							"initialization.0.nic_configuration.0.name",
+							regexp.MustCompile("nic_configuration_name"),
+						),
+						resource.TestMatchResourceAttr(
+							"ovirt_vm.foo",
+							"initialization.0.nic_configuration.0.ip.0.address",
+							regexp.MustCompile("1.1.1.1"),
+						),
+						resource.TestMatchResourceAttr(
+							"ovirt_vm.foo",
+							"initialization.0.nic_configuration.0.ip.0.gateway",
+							regexp.MustCompile("1.1.1.1"),
+						),
+						resource.TestMatchResourceAttr(
+							"ovirt_vm.foo",
+							"initialization.0.nic_configuration.0.ip.0.netmask",
+							regexp.MustCompile("1.1.1.1"),
+						),
+						resource.TestMatchResourceAttr(
+							"ovirt_vm.foo",
+							"initialization.0.nic_configuration.0.ip.0.version",
+							regexp.MustCompile("v4"),
+						),
+						resource.TestMatchResourceAttr(
+							"ovirt_vm.foo",
+							"initialization.0.nic_configuration.0.ipv6.0.address",
+							regexp.MustCompile("2001:0db8:85a3:0000:0000:8a2e:0370:7334"),
+						),
+						resource.TestMatchResourceAttr(
+							"ovirt_vm.foo",
+							"initialization.0.nic_configuration.0.ipv6.0.gateway",
+							regexp.MustCompile("1.1.1.1"),
+						),
+						resource.TestMatchResourceAttr(
+							"ovirt_vm.foo",
+							"initialization.0.nic_configuration.0.ipv6.0.netmask",
+							regexp.MustCompile("1.1.1.1"),
+						),
+						resource.TestMatchResourceAttr(
+							"ovirt_vm.foo",
+							"initialization.0.nic_configuration.0.ipv6.0.version",
+							regexp.MustCompile("v6"),
+						),
+
+						resource.TestMatchResourceAttr(
+							"ovirt_vm.foo",
+							"initialization.0.active_directory_ou",
+							regexp.MustCompile("active_directory_ou"),
+						),
+
+						resource.TestMatchResourceAttr(
+							"ovirt_vm.foo",
+							"initialization.0.authorized_ssh_keys",
+							regexp.MustCompile("authorized_ssh_keys"),
+						),
+
+						resource.TestMatchResourceAttr(
+							"ovirt_vm.foo",
+							"initialization.0.dns_search",
+							regexp.MustCompile("dns_search"),
+						),
+
+						resource.TestMatchResourceAttr(
+							"ovirt_vm.foo",
+							"initialization.0.dns_servers",
+							regexp.MustCompile("dns_servers"),
+						),
+
+						resource.TestMatchResourceAttr(
+							"ovirt_vm.foo",
+							"initialization.0.domain",
+							regexp.MustCompile("domain"),
+						),
+
+						resource.TestMatchResourceAttr(
+							"ovirt_vm.foo",
+							"initialization.0.input_locale",
+							regexp.MustCompile("input_locale"),
+						),
+
+						resource.TestMatchResourceAttr(
+							"ovirt_vm.foo",
+							"initialization.0.org_name",
+							regexp.MustCompile("org_name"),
+						),
+
+						resource.TestMatchResourceAttr(
+							"ovirt_vm.foo",
+							"initialization.0.regenerate_ids",
+							regexp.MustCompile("true"),
+						),
+
+						resource.TestMatchResourceAttr(
+							"ovirt_vm.foo",
+							"initialization.0.regenerate_ssh_keys",
+							regexp.MustCompile("false"),
+						),
+
+						resource.TestMatchResourceAttr(
+							"ovirt_vm.foo",
+							"initialization.0.root_password",
+							regexp.MustCompile("root_password"),
+						),
+
+						resource.TestMatchResourceAttr(
+							"ovirt_vm.foo",
+							"initialization.0.system_locale",
+							regexp.MustCompile("system_locale"),
+						),
+
+						resource.TestMatchResourceAttr(
+							"ovirt_vm.foo",
+							"initialization.0.timezone",
+							regexp.MustCompile("timezone"),
+						),
+
+						resource.TestMatchResourceAttr(
+							"ovirt_vm.foo",
+							"initialization.0.ui_language",
+							regexp.MustCompile("ui_language"),
+						),
+
+						resource.TestMatchResourceAttr(
+							"ovirt_vm.foo",
+							"initialization.0.user_locale",
+							regexp.MustCompile("user_locale"),
+						),
+
+						resource.TestMatchResourceAttr(
+							"ovirt_vm.foo",
+							"initialization.0.user_name",
+							regexp.MustCompile("user_name"),
+						),
+
+						resource.TestMatchResourceAttr(
+							"ovirt_vm.foo",
+							"initialization.0.windows_license_key",
+							regexp.MustCompile("windows_license_key"),
 						),
 					),
 				},
@@ -526,6 +699,10 @@ func (t *testVM) HugePages() *ovirtclient.VMHugePages {
 }
 
 func (t *testVM) Initialization() ovirtclient.Initialization {
+	panic("not implemented for test input")
+}
+
+func (t *testVM) Description() string {
 	panic("not implemented for test input")
 }
 

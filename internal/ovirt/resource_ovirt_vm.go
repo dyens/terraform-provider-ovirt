@@ -151,17 +151,209 @@ var vmSchema = map[string]*schema.Schema{
 			},
 		},
 	},
-	"initialization_custom_script": {
-		Type:        schema.TypeString,
+	"initialization": {
+		Type:        schema.TypeSet,
 		Optional:    true,
 		ForceNew:    true,
-		Description: "Custom script that passed to VM during initialization.",
-	},
-	"initialization_hostname": {
-		Type:        schema.TypeString,
-		Optional:    true,
-		ForceNew:    true,
-		Description: "hostname that is set during initialization.",
+		Description: "VM Initialization settings",
+		Elem: &schema.Resource{
+			Schema: map[string]*schema.Schema{
+				"custom_script": {
+					Type:        schema.TypeString,
+					Optional:    true,
+					ForceNew:    true,
+					Description: "Custom script that passed to VM during initialization.",
+				},
+				"hostname": {
+					Type:        schema.TypeString,
+					Optional:    true,
+					ForceNew:    true,
+					Description: "hostname that is set during initialization.",
+				},
+				"nic_configuration": {
+					Type:        schema.TypeSet,
+					Optional:    true,
+					ForceNew:    true,
+					Description: "nic_configuration that is set during initialization.",
+
+					Elem: &schema.Resource{
+						Schema: map[string]*schema.Schema{
+							"name": {
+								Type:        schema.TypeString,
+								Required:    true,
+								ForceNew:    true,
+								Description: "nic_configuration.name that passed to VM during initialization.",
+							},
+							"ip": {
+								Type:        schema.TypeSet,
+								Required:    true,
+								ForceNew:    true,
+								Description: "nic_configuration.ip that passed to VM during initialization.",
+
+								Elem: &schema.Resource{
+									Schema: map[string]*schema.Schema{
+										"address": {
+											Type:        schema.TypeString,
+											Required:    true,
+											ForceNew:    true,
+											Description: "nic_configuration.ip.address that is set during initialization.",
+										},
+										"gateway": {
+											Type:        schema.TypeString,
+											Required:    true,
+											ForceNew:    true,
+											Description: "nic_configuration.ip.gateway that is set during initialization.",
+										},
+										"netmask": {
+											Type:        schema.TypeString,
+											Required:    true,
+											ForceNew:    true,
+											Description: "nic_configuration.ip.netmask that is set during initialization.",
+										},
+										"version": {
+											Type:        schema.TypeString,
+											Optional:    true,
+											ForceNew:    true,
+											Description: "nic_configuration.ip.version that is set during initialization.",
+										},
+									},
+								},
+							},
+							"ipv6": {
+								Type:        schema.TypeSet,
+								Optional:    true,
+								ForceNew:    true,
+								Description: "nic_configuration.ip that passed to VM during initialization.",
+
+								Elem: &schema.Resource{
+									Schema: map[string]*schema.Schema{
+										"address": {
+											Type:        schema.TypeString,
+											Required:    true,
+											ForceNew:    true,
+											Description: "nic_configuration.ipv6.address that is set during initialization.",
+										},
+										"gateway": {
+											Type:        schema.TypeString,
+											Required:    true,
+											ForceNew:    true,
+											Description: "nic_configuration.ipv6.gateway that is set during initialization.",
+										},
+										"netmask": {
+											Type:        schema.TypeString,
+											Required:    true,
+											ForceNew:    true,
+											Description: "nic_configuration.ipv6.netmask that is set during initialization.",
+										},
+										"version": {
+											Type:        schema.TypeString,
+											Optional:    true,
+											ForceNew:    true,
+											Description: "nic_configuration.ip.version that is set during initialization.",
+										},
+									},
+								},
+							},
+						}},
+				},
+				"active_directory_ou": {
+					Type:        schema.TypeString,
+					Optional:    true,
+					ForceNew:    true,
+					Description: "active_directory_ou that is set during initialization.",
+				},
+				"authorized_ssh_keys": {
+					Type:        schema.TypeString,
+					Optional:    true,
+					ForceNew:    true,
+					Description: "authorized_ssh_keys that is set during initialization.",
+				},
+				"dns_search": {
+					Type:        schema.TypeString,
+					Optional:    true,
+					ForceNew:    true,
+					Description: "dns_search that is set during initialization.",
+				},
+				"dns_servers": {
+					Type:        schema.TypeString,
+					Optional:    true,
+					ForceNew:    true,
+					Description: "dns_servers that is set during initialization.",
+				},
+				"domain": {
+					Type:        schema.TypeString,
+					Optional:    true,
+					ForceNew:    true,
+					Description: "domain that is set during initialization.",
+				},
+				"input_locale": {
+					Type:        schema.TypeString,
+					Optional:    true,
+					ForceNew:    true,
+					Description: "input_locale that is set during initialization.",
+				},
+				"org_name": {
+					Type:        schema.TypeString,
+					Optional:    true,
+					ForceNew:    true,
+					Description: "org_name that is set during initialization.",
+				},
+				"regenerate_ids": {
+					Type:        schema.TypeBool,
+					Optional:    true,
+					ForceNew:    true,
+					Description: "regenerate_ids that is set during initialization.",
+				},
+				"regenerate_ssh_keys": {
+					Type:        schema.TypeBool,
+					Optional:    true,
+					ForceNew:    true,
+					Description: "regenerate_ssh_keys that is set during initialization.",
+				},
+				"root_password": {
+					Type:        schema.TypeString,
+					Optional:    true,
+					ForceNew:    true,
+					Description: "root_password that is set during initialization.",
+				},
+				"system_locale": {
+					Type:        schema.TypeString,
+					Optional:    true,
+					ForceNew:    true,
+					Description: "system_locale that is set during initialization.",
+				},
+				"timezone": {
+					Type:        schema.TypeString,
+					Optional:    true,
+					ForceNew:    true,
+					Description: "timezone that is set during initialization.",
+				},
+				"ui_language": {
+					Type:        schema.TypeString,
+					Optional:    true,
+					ForceNew:    true,
+					Description: "ui_language that is set during initialization.",
+				},
+				"user_locale": {
+					Type:        schema.TypeString,
+					Optional:    true,
+					ForceNew:    true,
+					Description: "user_locale that is set during initialization.",
+				},
+				"user_name": {
+					Type:        schema.TypeString,
+					Optional:    true,
+					ForceNew:    true,
+					Description: "user_name that is set during initialization.",
+				},
+				"windows_license_key": {
+					Type:        schema.TypeString,
+					Optional:    true,
+					ForceNew:    true,
+					Description: "windows_license_key that is set during initialization.",
+				},
+			},
+		},
 	},
 	"memory": {
 		Type:             schema.TypeInt,
@@ -659,26 +851,107 @@ func handleVMInitialization(
 	params ovirtclient.BuildableVMParameters,
 	diags diag.Diagnostics,
 ) diag.Diagnostics {
-	vmInitScript := ""
-	vmHostname := ""
-	useInit := false
-
-	if hName, ok := data.GetOk("initialization_hostname"); ok {
-		vmHostname = hName.(string)
-		useInit = true
-	}
-	if hInitScript, ok := data.GetOk("initialization_custom_script"); ok {
-		vmInitScript = hInitScript.(string)
-		useInit = true
+	initialization, _ := data.GetOk("initialization")
+	initializationList := initialization.(*schema.Set).List()
+	if len(initializationList) == 0 {
+		return diags
 	}
 
-	if useInit {
-		_, err := params.WithInitialization(ovirtclient.NewInitialization(vmInitScript, vmHostname))
-		if err != nil {
-			diags = append(diags, errorToDiag("add Initialization parameters", err))
+	initializationMap := initializationList[0].(map[string]interface{})
+
+	hostname := initializationMap["hostname"].(string)
+	customScript := initializationMap["custom_script"].(string)
+
+	nicConfigurationList := initializationMap["nic_configuration"].(*schema.Set).List()
+
+	var nicConfiguration ovirtclient.BuildableNicConfiguration
+	if len(nicConfigurationList) > 0 {
+		nicConfigurationMap := nicConfigurationList[0].(map[string]interface{})
+		nicName := nicConfigurationMap["name"].(string)
+
+		ipMap := nicConfigurationMap["ip"].(*schema.Set).List()[0].(map[string]interface{})
+		ipAddress := ipMap["address"].(string)
+		ipGateway := ipMap["gateway"].(string)
+		ipNetmask := ipMap["netmask"].(string)
+
+		ipVersionS := ipMap["version"].(string)
+		if ipVersionS != "" {
+			ipVersionS = "v4"
+		}
+		ipVersion := ovirtclient.IpVersion(ipVersionS)
+		ip := ovirtclient.IP{
+			Address: ipAddress,
+			Gateway: ipGateway,
+			Netmask: ipNetmask,
+			Version: ipVersion,
+		}
+		nicConfiguration = ovirtclient.NewNicConfiguration(nicName, ip)
+
+		ipv6List := nicConfigurationMap["ipv6"].(*schema.Set).List()
+		if len(ipv6List) > 0 {
+			ipv6Map := ipv6List[0].(map[string]interface{})
+			ipv6Address := ipv6Map["address"].(string)
+			ipv6Gateway := ipv6Map["gateway"].(string)
+			ipv6Netmask := ipv6Map["netmask"].(string)
+
+			ipv6VersionS := ipv6Map["version"].(string)
+			if ipv6VersionS != "" {
+				ipv6VersionS = "v6"
+			}
+			ipv6Version := ovirtclient.IpVersion(ipv6VersionS)
+			ipv6 := ovirtclient.IP{
+				Address: ipv6Address,
+				Gateway: ipv6Gateway,
+				Netmask: ipv6Netmask,
+				Version: ipv6Version,
+			}
+			nicConfiguration = nicConfiguration.WithIPV6(ipv6)
+			nicConfiguration.IP()
 		}
 	}
 
+	activeDirectoryOu := initializationMap["active_directory_ou"].(string)
+	authorizedSSHKeys := initializationMap["authorized_ssh_keys"].(string)
+	dnsSearch := initializationMap["dns_search"].(string)
+	dnsServers := initializationMap["dns_servers"].(string)
+	domain := initializationMap["domain"].(string)
+	inputLocale := initializationMap["input_locale"].(string)
+	orgName := initializationMap["org_name"].(string)
+	regenerateIds := initializationMap["regenerate_ids"].(bool)
+	regenerateSSHKeys := initializationMap["regenerate_ssh_keys"].(bool)
+	rootPassword := initializationMap["root_password"].(string)
+	systemLocale := initializationMap["system_locale"].(string)
+	timezone := initializationMap["timezone"].(string)
+	uiLanguage := initializationMap["ui_language"].(string)
+	userLocale := initializationMap["user_locale"].(string)
+	userName := initializationMap["user_name"].(string)
+	windowsLicenseKey := initializationMap["windows_license_key"].(string)
+
+	ovirtInitialization := ovirtclient.NewInitialization(customScript, hostname)
+	if nicConfiguration != nil {
+		ovirtInitialization = ovirtInitialization.WithNicConfiguration(nicConfiguration)
+	}
+	ovirtInitialization = ovirtInitialization.WithActiveDirectoryOu(activeDirectoryOu)
+	ovirtInitialization = ovirtInitialization.WithAuthorizedSshKeys(authorizedSSHKeys)
+	ovirtInitialization = ovirtInitialization.WithDnsSearch(dnsSearch)
+	ovirtInitialization = ovirtInitialization.WithDnsServers(dnsServers)
+	ovirtInitialization = ovirtInitialization.WithDomain(domain)
+	ovirtInitialization = ovirtInitialization.WithInputLocale(inputLocale)
+	ovirtInitialization = ovirtInitialization.WithOrgName(orgName)
+	ovirtInitialization = ovirtInitialization.WithRegenerateIds(regenerateIds)
+	ovirtInitialization = ovirtInitialization.WithRegenerateSshKeys(regenerateSSHKeys)
+	ovirtInitialization = ovirtInitialization.WithRootPassword(rootPassword)
+	ovirtInitialization = ovirtInitialization.WithSystemLocale(systemLocale)
+	ovirtInitialization = ovirtInitialization.WithTimezone(timezone)
+	ovirtInitialization = ovirtInitialization.WithUiLanguage(uiLanguage)
+	ovirtInitialization = ovirtInitialization.WithUserLocale(userLocale)
+	ovirtInitialization = ovirtInitialization.WithUserName(userName)
+	ovirtInitialization = ovirtInitialization.WithWindowsLicenseKey(windowsLicenseKey)
+
+	_, err := params.WithInitialization(ovirtInitialization)
+	if err != nil {
+		diags = append(diags, errorToDiag("add Initialization parameters", err))
+	}
 	return diags
 }
 
