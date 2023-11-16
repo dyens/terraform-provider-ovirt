@@ -76,4 +76,6 @@ require (
 
 replace gopkg.in/yaml.v3 v3.0.0-20200313102051-9f266ea9e77c => gopkg.in/yaml.v3 v3.0.1
 
-replace github.com/ovirt/go-ovirt-client/v3 => github.com/dyens/go-ovirt-client/v3 v3.0.0-20230913160305-471799d4f770
+// replace github.com/ovirt/go-ovirt-client/v3 => github.com/dyens/go-ovirt-client/v3 v3.0.0-20231115143413-08ded04c341d
+
+replace github.com/ovirt/go-ovirt-client/v3 => ../go-ovirt-client
